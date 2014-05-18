@@ -159,6 +159,7 @@ public class Dotcase extends Activity
         twitter = false;
         missed_call = false;
         mms = false;
+        voicemail = false;
         try {
             INotificationManager mNoMan = INotificationManager.Stub.asInterface(
                     ServiceManager.getService(Context.NOTIFICATION_SERVICE));
