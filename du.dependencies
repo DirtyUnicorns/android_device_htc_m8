@@ -1,0 +1,24 @@
+[
+  { 
+    "repository": "android_device_htc_m8",
+    "target_path": "device/htc/m8",
+  },
+  {
+    "remote": "du",
+    "repository": "android_hardware_qcom_audio-caf-bfam",
+    "target_path": "hardware/qcom/audio-caf-bfam",
+    "revision": "du44"
+  },
+  {
+    "remote": "du",
+    "repository": "android_hardware_qcom_display-caf-bfam",
+    "target_path": "hardware/qcom/display-caf-bfam",
+    "revision": "du44"
+  },
+  {
+    "remote": "du",
+    "repository": "android_hardware_qcom_media-caf-bfam",
+    "target_path": "hardware/qcom/media-caf-bfam",
+    "revision": "du44"
+  }
+]
