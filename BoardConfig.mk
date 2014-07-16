@@ -183,3 +183,5 @@ TARGET_LIBINIT_DEFINES_FILE := device/htc/m8/init/init_m8.c
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/htc/m8/releasetools
+
+USE_CUSTOM_DTBTOOL := true
