@@ -27,9 +27,6 @@ DEVICE_PACKAGE_OVERLAYS += device/htc/m8/overlay
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-PRODUCT_COPY_FILES += \
-    vendor/du/bootanimations/bootanimation_1080_1920.zip:system/media/bootanimation.zip
-
 # Device uses ultra-high-density artwork where available
 PRODUCT_AAPT_CONFIG := hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
