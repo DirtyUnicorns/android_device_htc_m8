@@ -22,12 +22,580 @@ package org.cyanogenmod.dotcase;
 
 import android.graphics.Paint;
 
-public class DotcaseConstants {
-    static String ACTION_KILL_ACTIVITY = "org.cyanogenmod.dotcase.KILL_ACTIVITY";
-    static String ACTION_REDRAW = "org.cyanogenmod.dotcase.REDRAW";
-    public static int dotratio = 40;
+import java.util.HashMap;
+import java.util.Map;
 
-    static int[][] torchSprite = {
+public class DotcaseConstants {
+    static final String ACTION_KILL_ACTIVITY = "org.cyanogenmod.dotcase.KILL_ACTIVITY";
+    static final String ACTION_REDRAW = "org.cyanogenmod.dotcase.REDRAW";
+    static final int dotratio = 40;
+
+    /**
+     * Notification types
+     */
+    public enum Notification {
+        EMAIL,
+        GMAIL,
+        HANGOUTS,
+        TWITTER,
+        MISSED_CALL,
+        MMS,
+        VOICEMAIL,
+        SNAPCHAT,
+        FACEBOOK,
+        DOTS
+    }
+
+    /**
+     * Paints
+     */
+
+    static final Paint pTrans = new Paint();
+    static final Paint pBlack = new Paint();
+    static final Paint pWhite = new Paint();
+    static final Paint pRed = new Paint();
+    static final Paint pGreen = new Paint();
+    static final Paint pBlue = new Paint();
+    static final Paint pOrange = new Paint();
+    static final Paint pPurple = new Paint();
+    static final Paint pYellow = new Paint();
+    static final Paint pGrey = new Paint();
+    static final Paint pCyan = new Paint();
+    static final Paint pDGreen = new Paint();
+    static final Paint pDRed = new Paint();
+    static final Paint pFYellow = new Paint();
+    static final Paint pTBlue = new Paint();
+    static final Paint pFbBlue = new Paint();
+
+    static {
+        pTrans.setARGB(0, 0, 0, 0);
+        pBlack.setARGB(255, 0, 0, 0);
+        pWhite.setARGB(255, 255, 255, 255);
+        pRed.setARGB(255, 255, 0, 0);
+        pGreen.setARGB(255, 0, 255, 0);
+        pBlue.setARGB(255, 0, 0, 255);
+        pOrange.setARGB(255, 255, 165, 0);
+        pPurple.setARGB(255, 160, 32, 240);
+        pYellow.setARGB(255, 255, 255, 0);
+        pGrey.setARGB(255, 69, 69, 69);
+        pCyan.setARGB(255, 51, 181, 229);
+        pDGreen.setARGB(255, 0, 128, 0);
+        pDRed.setARGB(255, 128, 0, 0);
+        pFYellow.setARGB(255, 255, 255, 153);
+        pTBlue.setARGB(255, 85, 172, 238);
+        pFbBlue.setARGB(255, 59, 89, 152);
+    }
+
+    static Paint getPaintFromNumber(int color) {
+        switch (color) {
+            case -1:
+                return pTrans;
+            case 0:
+                return pBlack;
+            case 1:
+                return pWhite;
+            case 2:
+                return pRed;
+            case 3:
+                return pGreen;
+            case 4:
+                return pBlue;
+            case 5:
+                return pOrange;
+            case 6:
+                return pPurple;
+            case 7:
+                return pYellow;
+            case 8:
+                return pGrey;
+            case 9:
+                return pCyan;
+            case 10:
+                return pDGreen;
+            case 11:
+                return pDRed;
+            case 12:
+                return pFYellow;
+            case 13:
+                return pTBlue;
+            case 14:
+                return pFbBlue;
+            default:
+                return pBlack;
+        }
+    }
+
+    /**
+     * Notification map
+     */
+
+    static final Map<String, Notification> notificationMap;
+    static {
+        notificationMap = new HashMap<String, Notification>();
+
+        // Email apps
+        notificationMap.put("com.android.email", Notification.EMAIL);
+        notificationMap.put("com.google.android.email", Notification.EMAIL);
+        notificationMap.put("com.mailboxapp", Notification.EMAIL);
+        notificationMap.put("com.yahoo.mobile.client.android.mail", Notification.EMAIL);
+        notificationMap.put("com.outlook.Z7", Notification.EMAIL);
+        notificationMap.put("com.maildroid", Notification.EMAIL);
+        notificationMap.put("com.maildroid.pro", Notification.EMAIL);
+        notificationMap.put("com.fsck.k9", Notification.EMAIL);
+
+        // Gmail apps
+        notificationMap.put("com.google.android.gm", Notification.GMAIL);
+
+        // Hangouts apps
+        notificationMap.put("com.google.android.talk", Notification.HANGOUTS);
+
+        // Twitter apps
+        notificationMap.put("com.twitter.android", Notification.TWITTER);
+        notificationMap.put("com.dotsandlines.carbon", Notification.TWITTER);
+        notificationMap.put("com.levelup.touiteur", Notification.TWITTER); // Plume
+        notificationMap.put("com.klinker.android.twitter", Notification.TWITTER); // Talon
+        notificationMap.put("com.jv.falcon.pro", Notification.TWITTER);
+        notificationMap.put("com.handmark.tweetcaster", Notification.TWITTER);
+        notificationMap.put("com.handmark.tweetcaster.premium", Notification.TWITTER);
+
+        // Missed call apps
+        notificationMap.put("com.android.phone", Notification.MISSED_CALL);
+
+        // MMS apps
+        notificationMap.put("com.android.mms", Notification.MMS);
+        notificationMap.put("com.p1.chompsms", Notification.MMS);
+        notificationMap.put("com.handcent.nextsms", Notification.MMS);
+        notificationMap.put("com.klinker.android.evolve_sms", Notification.MMS);
+
+        // Voicemail apps
+        notificationMap.put("com.google.android.apps.googlevoice", Notification.VOICEMAIL);
+
+        // Snapchat
+        notificationMap.put("com.snapchat.android", Notification.SNAPCHAT);
+
+        // Facebook apps
+        notificationMap.put("com.facebook.katana", Notification.FACEBOOK);
+        notificationMap.put("com.facebook.orca", Notification.FACEBOOK);
+    }
+
+    /**
+     * Notification sprites
+     */
+
+    static final int[][] hangoutsSprite = {
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 3, 3, 3, 3, 3, 0},
+        {3, 3, 1, 3, 1, 3, 3},
+        {3, 3, 1, 3, 1, 3, 3},
+        {0, 3, 3, 3, 3, 3, 0},
+        {0, 0, 0, 3, 3, 0, 0},
+        {0, 0, 0, 3, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0}};
+
+    static final int[][] mmsSprite = {
+        {0, 0, 0, 0, 0, 0, 0},
+        {3, 3, 3, 3, 3, 3, 3},
+        {3, 3, 3, 3, 3, 3, 3},
+        {3, 3, 3, 3, 3, 3, 3},
+        {3, 3, 3, 3, 3, 3, 3},
+        {3, 3, 3, 3, 3, 3, 3},
+        {0, 3, 3, 0, 0, 0, 0},
+        {0, 3, 0, 0, 0, 0, 0}};
+
+    static final int[][] twitterSprite = {
+        {0, 0,  0,  0,  0,  0, 0},
+        {0, 0, 13, 13,  0,  0, 0},
+        {0, 0, 13, 13, 13, 13, 0},
+        {0, 0, 13, 13, 13, 13, 0},
+        {0, 0, 13, 13,  0,  0, 0},
+        {0, 0, 13, 13, 13, 13, 0},
+        {0, 0,  0, 13, 13, 13, 0},
+        {0, 0,  0,  0,  0,  0, 0}};
+
+    static final int[][] voicemailSprite = { // this icon is shit
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 7, 7, 0, 7, 7, 0},
+        {7, 0, 0, 7, 0, 0, 7},
+        {7, 0, 0, 7, 0, 0, 7},
+        {0, 7, 7, 7, 7, 7, 0},
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0}};
+
+    static final int[][] missedCallSprite = {
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 1, 0},
+        {0, 0, 1, 0, 1, 0, 0},
+        {0, 0, 0, 1, 0, 0, 0},
+        {0, 7, 7, 7, 7, 7, 0},
+        {7, 7, 7, 7, 7, 7, 7},
+        {7, 7, 0, 0, 0, 7, 7},
+        {0, 0, 0, 0, 0, 0, 0}};
+
+    static final int[][] emailSprite = {
+        {0, 0, 1, 1, 1, 1, 0},
+        {0, 1, 0, 0, 0, 0, 1},
+        {1, 0, 0, 1, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 0, 1, 1, 1, 0},
+        {0, 1, 0, 0, 0, 0, 0},
+        {0, 0, 1, 1, 1, 1, 0}};
+
+    static final int[][] gmailSprite = {
+        {0, 0, 0, 0, 0, 0, 0},
+        {2, 1, 1, 1, 1, 1, 2},
+        {2, 2, 1, 1, 1, 2, 2},
+        {2, 1, 2, 1, 2, 1, 2},
+        {2, 1, 1, 2, 1, 1, 2},
+        {2, 1, 1, 1, 1, 1, 2},
+        {2, 1, 1, 1, 1, 1, 2},
+        {0, 0, 0, 0, 0, 0, 0}};
+
+    static final int[][] snapchatSprite = {
+        {0, 0, 7, 7, 7, 0, 0},
+        {0, 7, 7, 7, 7, 7, 0},
+        {0, 7, 7, 7, 7, 7, 0},
+        {7, 7, 7, 7, 7, 7, 7},
+        {0, 7, 7, 7, 7, 7, 0},
+        {0, 7, 7, 7, 7, 7, 0},
+        {0, 7, 7, 7, 7, 7, 0},
+        {0, 7, 0, 7, 0, 7, 0}};
+
+    static final int[][] facebookSprite = {
+        { 0, 14, 14, 14, 14, 14,  0},
+        {14, 14, 14, 14, 14,  1, 14},
+        {14, 14, 14, 14,  1, 14, 14},
+        {14, 14, 14, 14,  1, 14, 14},
+        {14, 14, 14,  1,  1,  1, 14},
+        {14, 14, 14, 14,  1, 14, 14},
+        {14, 14, 14, 14,  1, 14, 14},
+        { 0, 14, 14, 14,  1, 14,  0}};
+
+    static final int[][] dotsSprite = {
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 0, 1, 0, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0}};
+
+    static int[][] getNotificationSprite(Notification notification) {
+        switch (notification) {
+            case EMAIL:
+                return emailSprite;
+            case GMAIL:
+                return gmailSprite;
+            case HANGOUTS:
+                return hangoutsSprite;
+            case TWITTER:
+                return twitterSprite;
+            case MISSED_CALL:
+                return missedCallSprite;
+            case MMS:
+                return mmsSprite;
+            case VOICEMAIL:
+                return voicemailSprite;
+            case SNAPCHAT:
+                return snapchatSprite;
+            case FACEBOOK:
+                return facebookSprite;
+            case DOTS:
+                return dotsSprite;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Big number sprites
+     */
+
+    static final int[][] big0 = {
+        {-1,  9,  9, -1},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9, -1}};
+
+    static final int[][] big1 = {
+        {-1, -1,  9, -1},
+        {-1,  9,  9, -1},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1,  9,  9,  9}};
+
+    static final int[][] big2 = {
+        {-1,  9,  9, -1},
+        { 9, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1,  9, -1},
+        {-1, -1,  9, -1},
+        {-1,  9, -1, -1},
+        {-1,  9, -1, -1},
+        { 9, -1, -1, -1},
+        { 9, -1, -1, -1},
+        { 9,  9,  9,  9}};
+
+    static final int[][] big3 = {
+        {-1,  9,  9, -1},
+        { 9, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1,  9,  9, -1},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9, -1}};
+
+    static final int[][] big4 = {
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9,  9,  9,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9}};
+
+    static final int[][] big5 = {
+        { 9,  9,  9,  9},
+        { 9, -1, -1, -1},
+        { 9, -1, -1, -1},
+        { 9, -1, -1, -1},
+        { 9, -1, -1, -1},
+        { 9,  9,  9, -1},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9, -1}};
+
+    static final int[][] big6 = {
+        {-1,  9,  9, -1},
+        { 9, -1, -1,  9},
+        { 9, -1, -1, -1},
+        { 9, -1, -1, -1},
+        { 9, -1, -1, -1},
+        { 9,  9,  9, -1},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9, -1}};
+
+    static final int[][] big7 = {
+        { 9,  9,  9,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9}};
+
+    static final int[][] big8 = {
+        {-1,  9,  9, -1},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9, -1},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9, -1}};
+
+    static final int[][] big9 = {
+        {-1,  9,  9, -1},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        {-1, -1, -1,  9},
+        { 9, -1, -1,  9},
+        {-1,  9,  9, -1}};
+
+    static final int[][] bigNull = {
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1},
+        {-1, -1, -1, -1}};
+
+    static int[][] getNumSprite(char c) {
+        switch (c) {
+            case '0':
+                return big0;
+            case '1':
+                return big1;
+            case '2':
+                return big2;
+            case '3':
+                return big3;
+            case '4':
+                return big4;
+            case '5':
+                return big5;
+            case '6':
+                return big6;
+            case '7':
+                return big7;
+            case '8':
+                return big8;
+            case '9':
+                return big9;
+            default:
+                return bigNull;
+        }
+    }
+
+    /**
+     * Small number sprites
+     */
+
+    static final int[][] small0 = {
+        { 9,  9,  9},
+        { 9, -1,  9},
+        { 9, -1,  9},
+        { 9, -1,  9},
+        { 9,  9,  9}};
+
+    static final int[][] small1 = {
+        { 9,  9, -1},
+        {-1,  9, -1},
+        {-1,  9, -1},
+        {-1,  9, -1},
+        { 9,  9,  9}};
+
+    static final int[][] small2 = {
+        { 9,  9,  9},
+        {-1, -1,  9},
+        { 9,  9,  9},
+        { 9, -1, -1},
+        { 9,  9,  9}};
+
+    static final int[][] small3 = {
+        { 9,  9,  9},
+        {-1, -1,  9},
+        { 9,  9,  9},
+        {-1, -1,  9},
+        { 9,  9,  9}};
+
+    static final int[][] small4 = {
+        { 9, -1,  9},
+        { 9, -1,  9},
+        { 9,  9,  9},
+        {-1, -1,  9},
+        {-1, -1,  9}};
+
+    static final int[][] small5 = {
+        { 9,  9,  9},
+        { 9, -1, -1},
+        { 9,  9,  9},
+        {-1, -1,  9},
+        { 9,  9,  9}};
+
+    static final int[][] small6 = {
+        { 9,  9,  9},
+        { 9, -1, -1},
+        { 9,  9,  9},
+        { 9, -1,  9},
+        { 9,  9,  9}};
+
+    static final int[][] small7 = {
+        { 9,  9,  9},
+        {-1, -1,  9},
+        {-1, -1,  9},
+        {-1, -1,  9},
+        {-1, -1,  9}};
+
+    static final int[][] small8 = {
+        { 9,  9,  9},
+        { 9, -1,  9},
+        { 9,  9,  9},
+        { 9, -1,  9},
+        { 9,  9,  9}};
+
+    static final int[][] small9 = {
+        { 9,  9,  9},
+        { 9, -1,  9},
+        { 9,  9,  9},
+        {-1, -1,  9},
+        { 9,  9,  9}};
+
+    static final int[][] smallNull = {
+        {-1, -1, -1},
+        {-1, -1, -1},
+        {-1, -1, -1},
+        {-1, -1, -1},
+        {-1, -1, -1}};
+
+    static int[][] getSmallNumSprite(char c) {
+        switch (c) {
+            case '0':
+                return small0;
+            case '1':
+                return small1;
+            case '2':
+                return small2;
+            case '3':
+                return small3;
+            case '4':
+                return small4;
+            case '5':
+                return small5;
+            case '6':
+                return small6;
+            case '7':
+                return small7;
+            case '8':
+                return small8;
+            case '9':
+                return small9;
+            default:
+                return smallNull;
+        }
+    }
+
+    /**
+     * Various sprites
+     */
+
+    static final int[][] torchSprite = {
         {0, 7, 7, 7, 7, 0},
         {7, 7, 7, 7, 7, 7},
         {7, 7, 7, 7, 7, 7},
@@ -38,14 +606,14 @@ public class DotcaseConstants {
         {0, 8, 8, 8, 8, 0},
         {0, 8, 8, 8, 8, 0}};
 
-    static int[][] handsetSprite = {
+    static final int[][] handsetSprite = {
         {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3},
         {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3},
         {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3},
         {0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0},
         {0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0}};
 
-    static int[][] ringerSprite = {
+    static final int[][] ringerSprite = {
         {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0},
@@ -65,7 +633,7 @@ public class DotcaseConstants {
         {3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3},
         {0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0}};
 
-    static int[][] lightningSprite = {
+    static final int[][] lightningSprite = {
         {-1, -1, -1, -1,  0,  0, -1, -1},
         {-1, -1, -1,  0,  7,  0, -1, -1},
         {-1, -1,  0,  7,  7,  0, -1, -1},
@@ -77,7 +645,7 @@ public class DotcaseConstants {
         {-1, -1,  0,  7,  0, -1, -1, -1},
         {-1, -1,  0,  0, -1, -1, -1, -1}};
 
-    static int[][] clockSprite = {
+    static final int[][] clockSprite = {
         { 0, 12, 12, 12,  0,  0,  0,  0,  0, 12, 12, 12,  0},
         {12, 12, 12,  0,  0,  0,  0,  0,  0,  0, 12, 12, 12},
         {12, 12,  0,  0,  0,  0,  0,  0,  0,  0,  0, 12, 12},
@@ -92,106 +660,46 @@ public class DotcaseConstants {
         { 0,  0,  0,  0, 12, 12, 12, 12, 12,  0,  0,  0,  0},
         { 0,  0,  0, 12,  0,  0,  0,  0,  0, 12,  0,  0,  0}};
 
-    static int[][] snoozeArray = {
+    static final int[][] snoozeArray = {
         {12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12},
         {12,  0,  0, 0, 12,  0, 12, 0, 12,  0, 12, 0, 12,  0, 12, 0,  0,  0, 12, 0, 12,  0,  0},
         {12, 12, 12, 0, 12,  0, 12, 0, 12,  0, 12, 0, 12,  0, 12, 0,  0, 12,  0, 0, 12, 12, 12},
         { 0,  0, 12, 0, 12,  0, 12, 0, 12,  0, 12, 0, 12,  0, 12, 0, 12,  0,  0, 0, 12,  0,  0},
-        {12, 12, 12, 0, 12,  0, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 21, 0, 12, 12, 12}};
+        {12, 12, 12, 0, 12,  0, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12}};
 
-    static int[][] alarmCancelArray = {
+    static final int[][] alarmCancelArray = {
         {12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12,  0,  0},
         {12,  0,  0, 0, 12,  0, 12, 0, 12,  0, 12, 0, 12,  0,  0, 0, 12,  0,  0, 0, 12,  0,  0},
         {12,  0,  0, 0, 12, 12, 12, 0, 12,  0, 12, 0, 12,  0,  0, 0, 12, 12, 12, 0, 12,  0,  0},
         {12,  0,  0, 0, 12,  0, 12, 0, 12,  0, 12, 0, 12,  0,  0, 0, 12,  0,  0, 0, 12,  0,  0},
         {12, 12, 12, 0, 12,  0, 12, 0, 12,  0, 12, 0, 12, 12, 12, 0, 12, 12, 12, 0, 12, 12, 12}};
 
-    static int[][] hangoutsSprite = {
-        {0, 0, 0, 0, 0, 0, 0},
-        {0, 3, 3, 3, 3, 3, 0},
-        {3, 3, 1, 3, 1, 3, 3},
-        {3, 3, 1, 3, 1, 3, 3},
-        {0, 3, 3, 3, 3, 3, 0},
-        {0, 0, 0, 3, 3, 0, 0},
-        {0, 0, 0, 3, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0}};
-
-    static int[][] mmsSprite = {
-        {0, 0, 0, 0, 0, 0, 0},
-        {3, 3, 3, 3, 3, 3, 3},
-        {3, 3, 3, 3, 3, 3, 3},
-        {3, 3, 3, 3, 3, 3, 3},
-        {3, 3, 3, 3, 3, 3, 3},
-        {3, 3, 3, 3, 3, 3, 3},
-        {0, 3, 3, 0, 0, 0, 0},
-        {0, 3, 0, 0, 0, 0, 0}};
-
-    static int[][] twitterSprite = {
-        {0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 9, 9, 0, 0, 0},
-        {0, 0, 9, 9, 9, 9, 0},
-        {0, 0, 9, 9, 9, 9, 0},
-        {0, 0, 9, 9, 0, 0, 0},
-        {0, 0, 9, 9, 9, 9, 0},
-        {0, 0, 0, 9, 9, 9, 0},
-        {0, 0, 0, 0, 0, 0, 0}};
-
-    static int[][] voicemailSprite = { // this icon is shit
-        {0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0},
-        {0, 7, 7, 0, 7, 7, 0},
-        {7, 0, 0, 7, 0, 0, 7},
-        {7, 0, 0, 7, 0, 0, 7},
-        {0, 7, 7, 7, 7, 7, 0},
-        {0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0}};
-
-    static int[][] missedCallSprite = {
-        {0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 0, 0, 0, 1, 0},
-        {0, 0, 1, 0, 1, 0, 0},
-        {0, 0, 0, 1, 0, 0, 0},
-        {0, 7, 7, 7, 7, 7, 0},
-        {7, 7, 7, 7, 7, 7, 7},
-        {7, 7, 0, 0, 0, 7, 7},
-        {0, 0, 0, 0, 0, 0, 0}};
-
-    static int[][] gmailSprite = {
-        {0, 0, 0, 0, 0, 0, 0},
-        {2, 1, 1, 1, 1, 1, 2},
-        {2, 2, 1, 1, 1, 2, 2},
-        {2, 1, 2, 1, 2, 1, 2},
-        {2, 1, 1, 2, 1, 1, 2},
-        {2, 1, 1, 1, 1, 1, 2},
-        {2, 1, 1, 1, 1, 1, 2},
-        {0, 0, 0, 0, 0, 0, 0}};
-
-    static int[][] timeColon = {
+    static final int[][] timeColon = {
         {9},
         {0},
         {0},
         {9}};
 
-    static int[][] smallTimeColon = {
+    static final int[][] smallTimeColon = {
         {9},
         {0},
         {9}};
 
-    static int[][] amSprite = {
+    static final int[][] amSprite = {
         {9, 9, 9, 0, 9, 9, 0, 9, 9},
         {9, 0, 9, 0, 9, 0, 9, 0, 9},
         {9, 9, 9, 0, 9, 0, 9, 0, 9},
         {9, 0, 9, 0, 9, 0, 0, 0, 9},
         {9, 0, 9, 0, 9, 0, 0, 0, 9}};
 
-    static int[][] pmSprite = {
+    static final int[][] pmSprite = {
         {9, 9, 9, 0, 9, 9, 0, 9, 9},
         {9, 0, 9, 0, 9, 0, 9, 0, 9},
         {9, 9, 9, 0, 9, 0, 9, 0, 9},
         {9, 0, 0, 0, 9, 0, 0, 0, 9},
         {9, 0, 0, 0, 9, 0, 0, 0, 9}};
 
-    static int[][] batteryOutlineSprite = {
+    static final int[][] batteryOutlineSprite = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
@@ -204,336 +712,4 @@ public class DotcaseConstants {
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}};
-
-    static int[][] getSprite(char c) {
-        int[][] sprite;
-        switch (c) {
-            case '0':
-                sprite = new int[][] {
-                    {-1,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9, -1}
-                };
-                break;
-            case '1':
-                sprite = new int[][] {
-                    {-1, -1,  9, -1},
-                    {-1,  9,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1,  9,  9,  9}
-                };
-                break;
-            case '2':
-                sprite = new int[][] {
-                    {-1,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1,  9, -1},
-                    {-1, -1,  9, -1},
-                    {-1,  9, -1, -1},
-                    {-1,  9, -1, -1},
-                    { 9, -1, -1, -1},
-                    { 9, -1, -1, -1},
-                    { 9,  9,  9,  9}
-                };
-                break;
-            case '3':
-                sprite = new int[][] {
-                    {-1,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1,  9,  9, -1},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9, -1}
-                };
-                break;
-            case '4':
-                sprite = new int[][] {
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9,  9,  9,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9}
-                };
-                break;
-            case '5':
-                sprite = new int[][] {
-                    { 9,  9,  9,  9},
-                    { 9, -1, -1, -1},
-                    { 9, -1, -1, -1},
-                    { 9, -1, -1, -1},
-                    { 9, -1, -1, -1},
-                    { 9,  9,  9, -1},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9, -1}
-                };
-                break;
-            case '6':
-                sprite = new int[][] {
-                    {-1,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1, -1},
-                    { 9, -1, -1, -1},
-                    { 9, -1, -1, -1},
-                    { 9,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9, -1}
-                };
-                break;
-            case '7':
-                sprite = new int[][] {
-                    { 9,  9,  9,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9}
-                };
-                break;
-            case '8':
-                sprite = new int[][] {
-                    {-1,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9, -1}
-                };
-                break;
-            case '9':
-                sprite = new int[][] {
-                    {-1,  9,  9, -1},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    {-1, -1, -1,  9},
-                    { 9, -1, -1,  9},
-                    {-1,  9,  9, -1}
-                };
-                break;
-            default:
-                sprite = new int[][] {
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1},
-                    {-1, -1, -1, -1}
-                };
-                break;
-        }
-
-        return sprite;
-    }
-
-    static int[][] getSmallSprite(char c) {
-        int[][] sprite;
-        switch (c) {
-            case '0':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    { 9, -1,  9},
-                    { 9, -1,  9},
-                    { 9, -1,  9},
-                    { 9,  9,  9}
-                };
-                break;
-            case '1':
-                sprite = new int[][] {
-                    { 9,  9, -1},
-                    {-1,  9, -1},
-                    {-1,  9, -1},
-                    {-1,  9, -1},
-                    { 9,  9,  9}
-                };
-                break;
-            case '2':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    {-1, -1,  9},
-                    { 9,  9,  9},
-                    { 9, -1, -1},
-                    { 9,  9,  9}
-                };
-                break;
-            case '3':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    {-1, -1,  9},
-                    { 9,  9,  9},
-                    {-1, -1,  9},
-                    { 9,  9,  9}
-                };
-                break;
-            case '4':
-                sprite = new int[][] {
-                    { 9, -1,  9},
-                    { 9, -1,  9},
-                    { 9,  9,  9},
-                    {-1, -1,  9},
-                    {-1, -1,  9}
-                };
-                break;
-            case '5':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    { 9, -1, -1},
-                    { 9,  9,  9},
-                    {-1, -1,  9},
-                    { 9,  9,  9}
-                };
-                break;
-            case '6':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    { 9, -1, -1},
-                    { 9,  9,  9},
-                    { 9, -1,  9},
-                    { 9,  9,  9}
-                };
-                break;
-            case '7':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    {-1, -1,  9},
-                    {-1, -1,  9},
-                    {-1, -1,  9},
-                    {-1, -1,  9}
-                };
-                break;
-            case '8':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    { 9, -1,  9},
-                    { 9,  9,  9},
-                    { 9, -1,  9},
-                    { 9,  9,  9}
-                };
-                break;
-            case '9':
-                sprite = new int[][] {
-                    { 9,  9,  9},
-                    { 9, -1,  9},
-                    { 9,  9,  9},
-                    {-1, -1,  9},
-                    { 9,  9,  9}
-                };
-                break;
-            default:
-                sprite = new int[][] {
-                    {-1, -1, -1},
-                    {-1, -1, -1},
-                    {-1, -1, -1},
-                    {-1, -1, -1},
-                    {-1, -1, -1}
-                };
-                break;
-        }
-
-        return sprite;
-    }
-
-    static Paint getPaintFromNumber(int color) {
-        Paint paint = new Paint();
-        switch (color) {
-            case -1: // transparent
-                paint.setARGB(0, 0, 0, 0);
-                break;
-            case 0:  // black
-                paint.setARGB(255, 0, 0, 0);
-                break;
-            case 1:  // white
-                paint.setARGB(255, 255, 255, 255);
-                break;
-            case 2:  // red
-                paint.setARGB(255, 255, 0, 0);
-                break;
-            case 3:  // green
-                paint.setARGB(255, 0, 255, 0);
-                break;
-            case 4:  // blue
-                paint.setARGB(255, 0, 0, 255);
-                break;
-            case 5:  // orange
-                paint.setARGB(255, 255, 165, 0);
-                break;
-            case 6:  // purple
-                paint.setARGB(255, 160, 32, 240);
-                break;
-            case 7:  // yellow
-                paint.setARGB(255, 255, 255, 0);
-                break;
-            case 8:  // grey
-                paint.setARGB(255, 69, 69, 69);
-                break;
-            case 9:  // cyan
-                paint.setARGB(255, 51, 181, 229);
-                break;
-            case 10: // dark green
-                paint.setARGB(255, 0, 128, 0);
-                break;
-            case 11: // dark red
-                paint.setARGB(255, 128, 0, 0);
-                break;
-            case 12: // faded yellow
-                paint.setARGB(255, 255, 255, 153);
-                break;
-            default: // black
-                paint.setARGB(255, 0, 0, 0);
-                break;
-        }
-        return paint;
-    }
 }

@@ -34,9 +34,12 @@ import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
 import android.os.UEventObserver;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 class CoverObserver extends UEventObserver {
     private static final String COVER_UEVENT_MATCH = "DEVPATH=/devices/virtual/switch/cover";
+
+    private static final String TAG = "Dotcase";
 
     private final Context mContext;
     private final WakeLock mWakeLock;
@@ -46,6 +49,7 @@ class CoverObserver extends UEventObserver {
     private int oldBrightness = -1;
     private int oldBrightnessMode = -1;
     private boolean needStoreOldBrightness = true;
+    private int switchState = 0;
 
     public static boolean topActivityKeeper = false;
 
@@ -69,11 +73,11 @@ class CoverObserver extends UEventObserver {
     @Override
     public void onUEvent(UEventObserver.UEvent event) {
         try {
-            int state = Integer.parseInt(event.get("SWITCH_STATE"));
+            switchState = Integer.parseInt(event.get("SWITCH_STATE"));
             boolean screenOn = manager.isScreenOn();
             topActivityKeeper = false;
 
-            if (state == 1) {
+            if (switchState == 1) {
                 if (screenOn) {
                     manager.goToSleep(SystemClock.uptimeMillis());
                 }
@@ -85,8 +89,10 @@ class CoverObserver extends UEventObserver {
             }
 
             mWakeLock.acquire();
-            mHandler.sendMessageDelayed(mHandler.obtainMessage(state), 0);
-        } catch (Exception e) {}
+            mHandler.sendMessageDelayed(mHandler.obtainMessage(switchState), 0);
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "Error parsing SWITCH_STATE event", e);
+        }
     }
 
     private final Handler mHandler = new Handler() {
@@ -97,7 +103,9 @@ class CoverObserver extends UEventObserver {
             } else {
                 try {
                     mContext.getApplicationContext().unregisterReceiver(receiver);
-                } catch (Exception ex) {}
+                } catch (IllegalArgumentException e) {
+                    Log.e(TAG, "Failed to unregister receiver", e);
+                }
             }
             mWakeLock.release();
         }
@@ -106,6 +114,10 @@ class CoverObserver extends UEventObserver {
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            // If the case is open, don't try to do any of this
+            if (switchState == 0) {
+                return;
+            }
             Intent i = new Intent();
             if (intent.getAction().equals(TelephonyManager.ACTION_PHONE_STATE_CHANGED)) {
                 String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
@@ -148,7 +160,9 @@ class CoverObserver extends UEventObserver {
                         Settings.System.SCREEN_BRIGHTNESS);
                 oldBrightnessMode = Settings.System.getInt(mContext.getContentResolver(),
                         Settings.System.SCREEN_BRIGHTNESS_MODE);
-            } catch (Exception ex) {}
+            } catch (Settings.SettingNotFoundException e) {
+                Log.e(TAG, "Error retrieving brightness settings", e);
+            }
 
             needStoreOldBrightness = false;
         }
@@ -174,11 +188,9 @@ class CoverObserver extends UEventObserver {
             needStoreOldBrightness = true;
         }
 
-        try {
-            Intent i = new Intent();
-            i.setAction(DotcaseConstants.ACTION_KILL_ACTIVITY);
-            mContext.sendBroadcast(i);
-        } catch (Exception ex) {}
+        Intent i = new Intent();
+        i.setAction(DotcaseConstants.ACTION_KILL_ACTIVITY);
+        mContext.sendBroadcast(i);
     }
 
     private class ensureTopActivity implements Runnable {
@@ -197,7 +209,11 @@ class CoverObserver extends UEventObserver {
                 }
                 try {
                     Thread.sleep(100);
-                } catch (Exception ex) {}
+                } catch (IllegalArgumentException e) {
+                    // This isn't going to happen
+                } catch (InterruptedException e) {
+                    Log.i(TAG, "Sleep interrupted", e);
+                }
             }
         }
     }

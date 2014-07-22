@@ -187,7 +187,12 @@ PRODUCT_PACKAGES += \
 
 # QCOM rngd
 PRODUCT_PACKAGES += \
-    qrngd
+    qrngd \
+    qrngp
+
+# Thermal
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
 
 # Torch
 PRODUCT_PACKAGES += \

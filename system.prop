@@ -1,14 +1,4 @@
-# system.prop for m8
-
 ro.product.model=One M8
-
-# hardware info
-ro.device.chipset=Qualcomm Snapdragon MSM8974AB "801"
-ro.device.cpu=2.3 GHz quad-core
-ro.device.gpu=Qualcomm Adreno 330
-ro.device.rear_cam= Dual HTC UltraPixel (4mp)
-ro.device.front_cam=5.0 MP
-ro.device.screen_res=5.0 inch 1080p
 
 # RIL
 rild.libargs=-d /dev/smd0
@@ -41,6 +31,7 @@ com.qc.hardware=true
 persist.thermal.monitor=true
 ro.qc.sdk.sensors.gestures=true
 ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+ro.qualcomm.perf.cores_online=2
 
 # Audio
 audio.offload.buffer.size.kb=32

@@ -20,12 +20,15 @@
 
 package org.cyanogenmod.dotcase;
 
+import org.cyanogenmod.dotcase.DotcaseConstants.Notification;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.text.format.DateFormat;
 import android.view.View;
 
 import java.util.Arrays;
@@ -59,9 +62,13 @@ public class DrawView extends View {
                 dotcaseDrawSprite(DotcaseConstants.torchSprite, 19, 22, canvas);
             }
             drawTime(canvas);
-            Dotcase.checkNotifications();
-            if (Dotcase.gmail || Dotcase.hangouts || Dotcase.mms || Dotcase.missed_call
-                              || Dotcase.twitter || Dotcase.voicemail) {
+
+            // Check notifications each cycle before displaying them
+            if (heartbeat == 0) {
+                Dotcase.checkNotifications();
+            }
+
+            if (!Dotcase.notifications.isEmpty()) {
                 if (heartbeat < 3) {
                     drawNotifications(canvas);
                 } else {
@@ -88,16 +95,21 @@ public class DrawView extends View {
         timeObj.hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         timeObj.min = Calendar.getInstance().get(Calendar.MINUTE);
 
-        if (timeObj.hour > 11) {
-            if (timeObj.hour > 12) {
-                timeObj.hour = timeObj.hour - 12;
-            }
-            timeObj.am = false;
+        if (DateFormat.is24HourFormat(mContext)) {
+            timeObj.is24Hour = true;
         } else {
-            if (timeObj.hour == 0) {
-                timeObj.hour = 12;
+            timeObj.is24Hour = false;
+            if (timeObj.hour > 11) {
+                if (timeObj.hour > 12) {
+                    timeObj.hour = timeObj.hour - 12;
+                }
+                timeObj.am = false;
+            } else {
+                if (timeObj.hour == 0) {
+                    timeObj.hour = 12;
+                }
+                timeObj.am = true;
             }
-            timeObj.am = true;
         }
 
         timeObj.timeString = (timeObj.hour < 10
@@ -136,21 +148,23 @@ public class DrawView extends View {
             }
         }
 
-        dotcaseDrawSprite(DotcaseConstants.getSmallSprite(
+        dotcaseDrawSprite(DotcaseConstants.getSmallNumSprite(
                 time.timeString.charAt(0)), 0, 0, canvas);
-        dotcaseDrawSprite(DotcaseConstants.getSmallSprite(
+        dotcaseDrawSprite(DotcaseConstants.getSmallNumSprite(
                 time.timeString.charAt(1)), 4, 0, canvas);
         dotcaseDrawSprite(DotcaseConstants.smallTimeColon, 8, 1, canvas);
-        dotcaseDrawSprite(DotcaseConstants.getSmallSprite(
+        dotcaseDrawSprite(DotcaseConstants.getSmallNumSprite(
                 time.timeString.charAt(2)), 11, 0, canvas);
-        dotcaseDrawSprite(DotcaseConstants.getSmallSprite(
+        dotcaseDrawSprite(DotcaseConstants.getSmallNumSprite(
                 time.timeString.charAt(3)), 15, 0, canvas);
         dotcaseDrawSprite(mClockSprite, 7, 7, canvas);
 
-        if (time.am) {
-            dotcaseDrawSprite(DotcaseConstants.amSprite, 18, 0, canvas);
-        } else {
-            dotcaseDrawSprite(DotcaseConstants.pmSprite, 18, 0, canvas);
+        if (!time.is24Hour) {
+            if (time.am) {
+                dotcaseDrawSprite(DotcaseConstants.amSprite, 18, 0, canvas);
+            } else {
+                dotcaseDrawSprite(DotcaseConstants.pmSprite, 18, 0, canvas);
+            }
         }
 
         if (ringCounter / 6 > 0) {
@@ -173,39 +187,13 @@ public class DrawView extends View {
         int count = 0;
         int x = 1;
         int y = 30;
-        if (Dotcase.missed_call) {
-            dotcaseDrawSprite(DotcaseConstants.missedCallSprite,
-                    x + ((count % 3) * 9), y + ((count / 3) * 9), canvas);
-            count++;
-        }
 
-        if (Dotcase.voicemail) {
-            dotcaseDrawSprite(DotcaseConstants.voicemailSprite,
-                    x + ((count % 3) * 9), y + ((count / 3) * 9), canvas);
-            count++;
-        }
-
-        if (Dotcase.gmail) {
-            dotcaseDrawSprite(DotcaseConstants.gmailSprite,
-                    x + ((count % 3) * 9), y + ((count / 3) * 9), canvas);
-            count++;
-        }
-
-        if (Dotcase.hangouts) {
-            dotcaseDrawSprite(DotcaseConstants.hangoutsSprite,
-                    x + ((count % 3) * 9), y + ((count / 3) * 9), canvas);
-            count++;
-        }
-
-        if (Dotcase.mms) {
-            dotcaseDrawSprite(DotcaseConstants.mmsSprite,
-                    x + ((count % 3) * 9), y + ((count / 3) * 9), canvas);
-            count++;
-        }
-
-        if (Dotcase.twitter) {
-            dotcaseDrawSprite(DotcaseConstants.twitterSprite,
-                    x + ((count % 3) * 9), y + ((count / 3) * 9), canvas);
+        for (Notification notification : Dotcase.notifications) {
+            int[][] sprite = DotcaseConstants.getNotificationSprite(notification);
+            if (sprite != null) {
+                dotcaseDrawSprite(sprite, x + ((count % 3) * 9), y + ((count / 3) * 9), canvas);
+                count++;
+            }
         }
     }
 
@@ -306,20 +294,22 @@ public class DrawView extends View {
             starter = 3;
         }
 
-        if (time.am) {
-            dotcaseDrawSprite(DotcaseConstants.amSprite, 3, 18, canvas);
-        } else {
-            dotcaseDrawSprite(DotcaseConstants.pmSprite, 3, 18, canvas);
+        if (!time.is24Hour) {
+            if (time.am) {
+                dotcaseDrawSprite(DotcaseConstants.amSprite, 3, 18, canvas);
+            } else {
+                dotcaseDrawSprite(DotcaseConstants.pmSprite, 3, 18, canvas);
+            }
         }
 
         dotcaseDrawSprite(DotcaseConstants.timeColon, starter + 10, 5 + 4, canvas);
-        dotcaseDrawSprite(DotcaseConstants.getSprite(time.timeString.charAt(0)),
+        dotcaseDrawSprite(DotcaseConstants.getNumSprite(time.timeString.charAt(0)),
                 starter, 5, canvas);
-        dotcaseDrawSprite(DotcaseConstants.getSprite(time.timeString.charAt(1)),
+        dotcaseDrawSprite(DotcaseConstants.getNumSprite(time.timeString.charAt(1)),
                 starter + 5, 5, canvas);
-        dotcaseDrawSprite(DotcaseConstants.getSprite(time.timeString.charAt(2)),
+        dotcaseDrawSprite(DotcaseConstants.getNumSprite(time.timeString.charAt(2)),
                 starter + 12, 5, canvas);
-        dotcaseDrawSprite(DotcaseConstants.getSprite(time.timeString.charAt(3)),
+        dotcaseDrawSprite(DotcaseConstants.getNumSprite(time.timeString.charAt(3)),
                 starter + 17, 5, canvas);
     }
 
@@ -363,7 +353,7 @@ public class DrawView extends View {
         int x = 0, y = 5;
         if (Dotcase.ringing) {
             for (int i = 3; i < Dotcase.phoneNumber.length(); i++) {
-                sprite = DotcaseConstants.getSmallSprite(Dotcase.phoneNumber.charAt(i));
+                sprite = DotcaseConstants.getSmallNumSprite(Dotcase.phoneNumber.charAt(i));
                 dotcaseDrawSprite(sprite, x + (i - 3) * 4, y, canvas);
             }
         }
@@ -373,6 +363,7 @@ public class DrawView extends View {
         String timeString;
         int hour;
         int min;
+        boolean is24Hour;
         boolean am;
     }
 }

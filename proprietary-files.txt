@@ -1,3 +1,4 @@
+-app/EasyAccessService.apk
 bin/adsprpcd
 bin/ATFWD-daemon
 bin/cir_fw_update
@@ -10,6 +11,7 @@ bin/mpdecision
 bin/ptt_socket_app
 bin/qseecomd
 bin/rmt_storage
+bin/thermal-engine
 bin/time_daemon
 blobs/gsm/bin/netmgrd
 blobs/gsm/bin/qmuxd
@@ -244,6 +246,7 @@ vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
 vendor/lib/egl/libGLESv2_adreno.so
+vendor/lib/egl/libplayback_adreno.so
 vendor/lib/egl/libq3dtools_adreno.so
 vendor/lib/libacdbloader.so
 vendor/lib/libacdbmapper.so
