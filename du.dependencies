@@ -7,8 +7,8 @@
   },
   {
     "remote": "du",
-    "repository": "android_hardware_qcom_audio-caf-bfam",
-    "target_path": "hardware/qcom/audio-caf-bfam",
+    "repository": "android_hardware_qcom_audio-caf",
+    "target_path": "hardware/qcom/audio-caf",
     "revision": "du44"
   },
   {
