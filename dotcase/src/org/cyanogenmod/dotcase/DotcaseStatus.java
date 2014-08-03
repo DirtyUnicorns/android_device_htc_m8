@@ -44,7 +44,7 @@ public class DotcaseStatus {
     private int ringCounter = 0;
     private String callerNumber = "";
     private String callerName = "";
-    private int callerTicker = -3;
+    private int callerTicker = 0;
     private boolean torchStatus = false;
     private boolean alarmClock = false;
 
@@ -112,14 +112,13 @@ public class DotcaseStatus {
         resetTimer = true;
         ringCounter = 0;
         callerNumber = number;
-        callerTicker = -3;
+        callerTicker = -6;
     }
 
     synchronized void stopRinging() {
         ringing = false;
         callerNumber = "";
         callerName = "";
-        callerTicker = -3;
     }
 
     synchronized int callerTicker() {
