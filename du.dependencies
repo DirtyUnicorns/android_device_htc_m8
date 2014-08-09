@@ -22,5 +22,11 @@
     "repository": "android_vendor_htc",
     "target_path": "vendor/htc",
     "revision": "du44"
+  },
+  {
+    "remote": "du",
+    "repository": "android_device_qcom_common",
+    "target_path": "device/qcom/common",
+    "revision": "du44"
   }
 ]
