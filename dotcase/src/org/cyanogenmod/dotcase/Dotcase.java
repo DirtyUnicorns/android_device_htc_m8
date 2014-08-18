@@ -43,7 +43,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.android.internal.telephony.ITelephony;
-import com.android.internal.util.cm.TorchConstants;
+import com.android.internal.util.du.TorchConstants;
 
 import java.lang.Math;
 import java.io.BufferedReader;
