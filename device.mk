@@ -69,6 +69,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     device/htc/m8/configs/com.htc.software.market.xml:system/etc/permissions/com.htc.software.market.xml
 
+# DevicHandler
+PRODUCT_PACKAGES += \
+    DeviceHandler
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
