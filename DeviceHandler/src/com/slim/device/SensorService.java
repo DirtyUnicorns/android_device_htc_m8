@@ -115,7 +115,6 @@ public class SensorService extends Service implements SensorEventListener {
         if (DEBUG) Log.d(TAG, "Sensor type=" + sensorEvent.sensor.getType()
                 + "," + sensorEvent.values[0] + "," + sensorEvent.values[1]);
         startAction((int) gesture);
-        }
     }
 
     private void startAction(int gesture) {
