@@ -87,6 +87,7 @@ void vendor_load_properties()
         property_set("telephony.sms.pseudo_multipart", "1");
         property_set("ro.ril.oem.ecclist", "911");
         property_set("ro.ril.enable.pre_r8fd=1", "1");
+        property_set("persist.radio.apm_sim_not_pwdn", "1");
         property_set("ro.ril.enable.sdr", "0");
         property_set("ro.ril.set.mtusize", "1422");
     } else {
