@@ -80,10 +80,10 @@ void vendor_load_properties()
     } else if (strstr(bootmid, "0P6B70000")) {
         /* m8spr (m8whl) */
         cdma_properties("1", "8", "310120", "Sprint");
-        property_set("ro.build.fingerprint", "htc/sprint_wwe/htc_m8whl:4.4.2/KOT49H/326598.8:user/release-keys");
-        property_set("ro.build.description", "1.54.651.8 CL326598 release-keys");
-        property_set("ro.product.device", "m8spr");
-        property_set("ro.build.product", "m8spr");
+        property_set("ro.build.fingerprint", "htc/sprint_wwe/htc_m8whl:4.4.3/KTU84L/357420.4:user/release-keys");
+        property_set("ro.build.description", "2.16.651.4 CL357420 release-keys");
+        property_set("ro.product.device", "htc_m8whl");
+        property_set("ro.build.product", "htc_m8whl");
         property_set("telephony.sms.pseudo_multipart", "1");
         property_set("ro.ril.oem.ecclist", "911");
         property_set("ro.ril.enable.pre_r8fd=1", "1");
