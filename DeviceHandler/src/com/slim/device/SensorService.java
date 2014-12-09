@@ -34,8 +34,8 @@ import android.view.WindowManager;
 
 import java.util.Iterator;
 
-import com.android.internal.util.slim.ButtonsConstants;
-import com.android.internal.util.slim.SlimActions;
+import com.android.internal.util.slim.ActionConstants;
+import com.android.internal.util.slim.Action;
 
 import com.slim.device.settings.ScreenOffGesture;
 
@@ -122,39 +122,39 @@ public class SensorService extends Service implements SensorEventListener {
         switch (gesture) {
             case DOUBLE_TAP:
                 action = mPrefs.getString(ScreenOffGesture.PREF_DOUBLE_TAP,
-                        ButtonsConstants.ACTION_WAKE_DEVICE);
+                        ActionConstants.ACTION_WAKE_DEVICE);
                 break;
             case SWIPE_UP:
                 action = mPrefs.getString(ScreenOffGesture.PREF_SWIPE_UP,
-                        ButtonsConstants.ACTION_TORCH);
+                        ActionConstants.ACTION_TORCH);
                 break;
             case SWIPE_DOWN:
                 action = mPrefs.getString(ScreenOffGesture.PREF_SWIPE_DOWN,
-                        ButtonsConstants.ACTION_MEDIA_PLAY_PAUSE);
+                        ActionConstants.ACTION_MEDIA_PLAY_PAUSE);
                 break;
             case SWIPE_LEFT:
                 action = mPrefs.getString(ScreenOffGesture.PREF_SWIPE_LEFT,
-                        ButtonsConstants.ACTION_MEDIA_PREVIOUS);
+                        ActionConstants.ACTION_MEDIA_PREVIOUS);
                 break;
             case SWIPE_RIGHT:
                 action = mPrefs.getString(ScreenOffGesture.PREF_SWIPE_RIGHT,
-                        ButtonsConstants.ACTION_MEDIA_NEXT);
+                        ActionConstants.ACTION_MEDIA_NEXT);
                 break;
             case CAMERA:
                 action = mPrefs.getString(ScreenOffGesture.PREF_CAMERA,
-                        ButtonsConstants.ACTION_CAMERA);
+                        ActionConstants.ACTION_CAMERA);
                 break;
         }
-        if (action == null || action != null && action.equals(ButtonsConstants.ACTION_NULL)) {
+        if (action == null || action != null && action.equals(ActionConstants.ACTION_NULL)) {
             return;
         }
-        if (action.equals(ButtonsConstants.ACTION_CAMERA)
+        if (action.equals(ActionConstants.ACTION_CAMERA)
                 || !action.startsWith("**")) {
-            SlimActions.processAction(mContext, ButtonsConstants.ACTION_WAKE_DEVICE, false);
+            Action.processAction(mContext, ActionConstants.ACTION_WAKE_DEVICE, false);
         }
         if (DEBUG) Log.d(TAG, action + ",gesture=" + gesture);
         mSensorManager.registerListener(mSensorEventListener,
                 mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        SlimActions.processAction(mContext, action, false);
+        Action.processAction(mContext, action, false);
     }
 }

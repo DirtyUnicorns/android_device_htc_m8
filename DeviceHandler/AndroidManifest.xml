@@ -28,6 +28,7 @@
         <activity
             android:name="com.slim.device.settings.ScreenOffGestureSettings"
             android:label="@string/screen_off_gesture_title" >
+            android:theme="@style/DeviceHandlerTheme"
             <intent-filter>
                 <action android:name="com.slim.action.LAUNCH_SCREEN_OFF_GESTURE_SETTINGS" />
             </intent-filter>
