@@ -41,15 +41,14 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>8</item>
-        <item>14</item>
-        <item>46</item>
-        <item>113</item>
-        <item>576</item>
-        <item>1251</item>
-        <item>2101</item>
-        <item>3201</item>
-        <item>4201</item>
+        <item>9</item>
+        <item>30</item>
+        <item>100</item>
+        <item>325</item>
+        <item>1250</item>
+        <item>3500</item>
+        <item>10000</item>
+        <item>20000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -57,33 +56,15 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>38</item>
-        <item>64</item>
-        <item>64</item>
-        <item>90</item>
-        <item>116</item>
-        <item>142</item>
-        <item>170</item>
-        <item>199</item>
-        <item>227</item>
-        <item>255</item>
-    </integer-array>
-
-    <!-- Array of output values for button backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessButtonBacklightValues">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>18</item>   <!-- 0-9 -->
+        <item>30</item>   <!-- 10-30 -->
+        <item>59</item>   <!-- 31-100 -->
+        <item>74</item>   <!-- 101-325 -->
+        <item>92</item>   <!-- 326-1250 -->
+        <item>118</item>  <!-- 1251-3500 -->
+        <item>155</item>  <!-- 3501-10000 -->
+        <item>222</item>  <!-- 10001-20000 -->
+        <item>255</item>  <!-- 20001+ -->
     </integer-array>
 
     <!-- Minimum screen brightness allowed by the power manager. -->
@@ -318,6 +299,20 @@
         <item>evdo_b:4094,87380,262144,4096,16384,262144</item>
     </string-array>
 
+    <!-- Vibrator pattern for feedback about a long screen/key press -->
+    <integer-array name="config_longPressVibePattern">
+        <item>0</item>
+        <item>25</item>
+        <item>10</item>
+    </integer-array>
+
+    <!-- Vibrator pattern for feedback about touching a virtual key -->
+    <integer-array name="config_virtualKeyVibePattern">
+        <item>0</item>
+        <item>25</item>
+        <item>8</item>
+    </integer-array>
+
     <!-- Screen brightness when dozing -->
     <integer name="config_screenBrightnessDoze">17</integer>
 
@@ -330,6 +325,5 @@
     <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
     <integer name="config_screenBrightnessDoze">1</integer>
     <bool name="config_dozeAfterScreenOff">true</bool>
-    <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
 </resources>
