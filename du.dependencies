@@ -4,7 +4,7 @@
     "target_path": "kernel/htc/msm8974"
   },
   {
-    "repository": "android_device_qcom_common",
+    "repository": "DirtyUnicorns/android_device_qcom_common",
     "target_path": "device/qcom/common"
   },
   {
