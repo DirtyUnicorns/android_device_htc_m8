@@ -1,6 +1,6 @@
 [
   {
-    "repository": "android_kernel_htc_msm8974",
+    "repository": "smac0628/android_kernel_htc_msm8974",
     "target_path": "kernel/htc/msm8974"
   },
   {
@@ -8,7 +8,7 @@
     "target_path": "device/qcom/common"
   },
   {
-    "repository": "android_hardware_qcom_fm",
+    "repository": "CyanogenMod/android_hardware_qcom_fm",
     "target_path": "hardware/qcom/fm"
   }
 ]
