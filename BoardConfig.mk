@@ -34,7 +34,7 @@ TARGET_BOARD_INFO_FILE ?= device/htc/m8/board-info.txt
 BOARD_VENDOR := htc
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := MSM8974
+TARGET_BOOTLOADER_BOARD_NAME := m8
 TARGET_NO_BOOTLOADER := true
 
 # Platform
