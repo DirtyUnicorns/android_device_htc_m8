@@ -1,14 +1,22 @@
 [
   {
-    "repository": "smac0628/android_kernel_htc_msm8974",
-    "target_path": "kernel/htc/msm8974"
+    "repository":   "DirtyUnicorns/android_device_qcom-common",
+    "target_path":  "device/qcom/common",
+    "branch":       "lollipop-caf"
   },
   {
-    "repository": "DirtyUnicorns/android_device_qcom_common",
-    "target_path": "device/qcom/common"
+    "repository":   "DirtyUnicorns/android_hardware_qcom_fm",
+    "target_path":  "hardware/qcom/fm",
+    "branch":       "lollipop-caf"
   },
   {
-    "repository": "CyanogenMod/android_hardware_qcom_fm",
-    "target_path": "hardware/qcom/fm"
+    "repository":   "DirtyUnicorns/android_kernel_htc_msm8974",
+    "target_path":  "kernel/htc/msm8974",
+    "branch":       "lollipop-caf"
+  },
+  {
+    "repository":   "DirtyUnicorns/android_vendor_htc",
+    "target_path":  "vendor/htc",
+    "branch":       "lollipop-caf"
   }
 ]
