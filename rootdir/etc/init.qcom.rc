@@ -106,6 +106,8 @@ on fs
     setprop ro.crypto.fuse_sdcard true
 
 on post-fs-data
+    symlink /sys/kernel/debug /data/d
+
     mkdir /data/tombstones 0771 system system
     symlink /data/tombstones /tombstones
     mkdir /tombstones/modem 0771 system system
@@ -119,14 +121,6 @@ on post-fs-data
     restorecon /data/OTPData.dat
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
-
-    # Create the directories used by the Wireless subsystem
-    mkdir /data/misc/wifi 0771 wifi wifi
-    mkdir /data/misc/wifi/hostapd 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
 
     # Create the directory used by CnE subsystem
     mkdir /data/connectivity 0771 system system
@@ -169,9 +163,6 @@ on post-fs-data
 
     #Create directory for FOTA
     mkdir /data/fota 0771 system system
-
-    #Create directory for hostapd
-    mkdir /data/hostapd 0770 system wifi
 
     # Create /data/time folder for time-services
     mkdir /data/time/ 0700 system system
@@ -398,13 +389,6 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.bluedroid.sh
     disabled
     oneshot
 
-service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
-    class late_start
-    user root
-    group root
-    oneshot
-    disabled
-
 service hvdcp /system/bin/hvdcp
     class core
     user root
@@ -620,7 +604,6 @@ on property:service.bootanim.exit=1
     chmod 664 /sys/devices/system/cpu/cpu1/online
     chmod 664 /sys/devices/system/cpu/cpu2/online
     chmod 664 /sys/devices/system/cpu/cpu3/online
-    write /dev/cpuctl/apps/cpu.notify_on_migrate "1"
 
     write /sys/module/cpu_boost/parameters/boost_ms "20"
     write /sys/module/cpu_boost/parameters/sync_threshold "1728000"
