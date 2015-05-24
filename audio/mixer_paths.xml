@@ -24,7 +24,7 @@
     <ctl name="RX4 Digital Volume" value="0" />
     <ctl name="RX5 Digital Volume" value="0" />
     <ctl name="RX6 Digital Volume" value="0" />
-    <ctl name="RX7 Digital Volume" value="84" />
+    <ctl name="RX7 Digital Volume" value="64" />
     <ctl name="ADC1 Volume" value="19" />
     <ctl name="ADC2 Volume" value="19" />
     <ctl name="ADC3 Volume" value="19" />
@@ -757,16 +757,16 @@
 
     <path name="earpiece">
         <path name="earpiece-generic" />
-        <ctl name="RX3 Digital Volume" value="79" />
-        <ctl name="RX4 Digital Volume" value="79" />
+        <ctl name="RX3 Digital Volume" value="92" />
+        <ctl name="RX4 Digital Volume" value="92" />
         <ctl name="LINEOUT1 Volume" value="16" />
         <ctl name="LINEOUT3 Volume" value="16" />
     </path>
 
     <path name="earpiece-voice">
         <path name="earpiece-generic" />
-        <ctl name="RX3 Digital Volume" value="84" />
-        <ctl name="RX4 Digital Volume" value="84" />
+        <ctl name="RX3 Digital Volume" value="92" />
+        <ctl name="RX4 Digital Volume" value="92" />
         <ctl name="LINEOUT1 Volume" value="16" />
         <ctl name="LINEOUT3 Volume" value="16" />
     </path>
