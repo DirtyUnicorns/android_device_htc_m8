@@ -83,3 +83,6 @@ persist.sys.usb.config=mtp
 
 # Wifi
 wifi.interface=wlan0
+
+#DU Updater
+ro.du.updater=m8
