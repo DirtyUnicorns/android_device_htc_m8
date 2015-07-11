@@ -8,7 +8,7 @@
   {
     "repository":   "android_hardware_qcom_fm",
     "target_path":  "hardware/qcom/fm",
-    "remote";       "du",
+    "remote":       "du",
     "branch":       "lollipop-caf"
   },
   {
@@ -20,7 +20,7 @@
   {
     "repository":   "android_vendor_htc",
     "target_path":  "vendor/htc",
-    "remote";       "du",
+    "remote":       "du",
     "branch":       "lollipop-caf"
   }
 ]
