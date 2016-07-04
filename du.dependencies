@@ -20,31 +20,6 @@
     "branch":       "m-caf"
   },
   {
-    "repository":   "CyanogenMod/android_external_exfat",
-    "target_path":  "external/exfat",
-    "branch":       "cm-13.0"
-  },
-  {
-    "repository":   "CyanogenMod/android_external_fuse",
-    "target_path":  "external/fuse",
-    "branch":       "cm-13.0"
-  },
-  {
-    "repository":   "CyanogenMod/android_external_libncurses",
-    "target_path":  "external/libncurses",
-    "branch":       "cm-13.0"
-  },
-  {
-    "repository":   "CyanogenMod/android_external_ntfs-3g",
-    "target_path":  "external/ntfs-3g",
-    "branch":       "cm-13.0"
-  },
-  {
-    "repository":   "CyanogenMod/android_external_p7zip",
-    "target_path":  "external/p7zip",
-    "branch":       "cm-13.0"
-  },
-  {
     "repository":   "DirtyUnicorns/android_hardware_sony_thermanager",
     "target_path":  "hardware/sony/thermanager",
     "branch":       "m-caf"
