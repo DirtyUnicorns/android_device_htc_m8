@@ -23,10 +23,5 @@
     "repository":   "DirtyUnicorns/android_hardware_sony_thermanager",
     "target_path":  "hardware/sony/thermanager",
     "branch":       "m-caf"
-  },
-  {
-    "repository":   "DirtyUnicorns/android_packages_apps_Snap",
-    "target_path":  "packages/apps/Snap",
-    "branch":       "m-caf"
   }
 ]
